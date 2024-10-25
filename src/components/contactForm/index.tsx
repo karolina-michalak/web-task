@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 import FormInput from "../formInput";
 import Button from "../button";
@@ -52,7 +52,7 @@ const ContactForm = ({ setIsFormSubmitted }) => {
     return errors;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const validationErrors = validateFormFields();
     if (

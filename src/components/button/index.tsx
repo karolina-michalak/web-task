@@ -15,10 +15,10 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button
+      {...restProps}
       type={type}
       onClick={onClick}
       className={`button ${className}`}
-      {...restProps}
     >
       {children}
     </button>

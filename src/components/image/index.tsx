@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 
 import placeholderImage from "/placeholder.jpg";
 
@@ -8,8 +8,6 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
 
 const Image = ({
-  src,
-  alt,
   className,
   width = "auto",
   height = "auto",
@@ -18,27 +16,30 @@ const Image = ({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  const { src, onLoad, onError } = restProps;
+
   const showPlaceholderImage = error || isLoading;
 
-  const handleImageLoad = () => {
+  const handleImageLoad = (event: SyntheticEvent<HTMLImageElement, Event>) => {
     setIsLoading(false);
+    onLoad && onLoad(event);
   };
 
-  const handleImageError = (e) => {
+  const handleImageError = (event: SyntheticEvent<HTMLImageElement, Event>) => {
     setError(true);
-    e.target.alt = "Image failed to load";
+    (event.target as HTMLImageElement).alt = "Image failed to load";
+    onError && onError(event);
   };
 
   return (
     <img
+      {...restProps}
       src={showPlaceholderImage ? placeholderImage : src}
-      alt={alt}
       className={className}
       width={width}
       height={height}
       onLoad={handleImageLoad}
       onError={handleImageError}
-      {...restProps}
     />
   );
 };
