@@ -1,0 +1,15 @@
+.contactForm {
+  & .row {
+    display: flex;
+    justify-content: space-between;
+
+    & > div {
+      margin: 0;
+    }
+  }
+}
+
+.submitButton {
+  background-color: #ed4c5c;
+  border: 1px solid #ed4c5c;
+}

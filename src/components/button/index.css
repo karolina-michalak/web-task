@@ -1,0 +1,12 @@
+.button {
+  font-size: 1.4rem;
+  line-height: 1.68rem;
+  padding: 1.5rem 3rem;
+  border-radius: 0.6rem;
+  color: #ffffff;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid #000000;
+  }
+}
