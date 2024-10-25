@@ -1,23 +1,21 @@
+import * as React from "react";
 import { useState } from "react";
+
 import FormInput from "../formInput";
 import Button from "../button";
 import { phoneNumberRegex } from "../../constants/regex";
 import "./index.css";
 
 const ContactForm = ({ setIsFormSubmitted }) => {
-  const [formData, setFormData] = useState({
+  const formRecords = {
     firstName: "",
     lastName: "",
     phoneNumber: "",
     message: "",
-  });
+  };
 
-  const [formErrors, setFormErrors] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState(formRecords);
+  const [formErrors, setFormErrors] = useState(formRecords);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -36,7 +34,7 @@ const ContactForm = ({ setIsFormSubmitted }) => {
   };
 
   const validateFormFields = () => {
-    const errors = {};
+    const errors = formRecords;
 
     if (formData.firstName.trim() === "") {
       errors.firstName = "First name is invalid";
@@ -57,7 +55,10 @@ const ContactForm = ({ setIsFormSubmitted }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const validationErrors = validateFormFields();
-    if (Object.keys(validationErrors).length > 0) {
+    if (
+      Object.values(validationErrors).filter((item) => item.length > 0).length >
+      0
+    ) {
       setFormErrors(validationErrors);
     } else {
       setIsFormSubmitted(true);
